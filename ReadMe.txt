@@ -1,0 +1,1 @@
+movie name field length in EMDB export = 60, separator= : (re-save as ANSI!)
