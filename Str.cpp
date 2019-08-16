@@ -248,7 +248,7 @@ return(errcode);
 
 extern	int dbsafe;
 int		log200;
-void m_finish(const char *fmt,...)
+void m_finish(const char *fmt,...)		// run debugger to HERE if untrapped error
 {
 va_list va;
 va_start(va,fmt);
@@ -313,6 +313,7 @@ while (n>=0)
 	len=next_delimiter('\t',rec);
 	if (len>=sizeof(fld)) m_finish("Internal error 801 field too long [%s]",prv);
 	if (n--) rec+=(len+1); else break;
+	if (!*rec) return(0);	// Added check to avoid going past end, 7/2/19
 	}
 if (len) memmove(fld,rec,len);
 fld[len]=0;
@@ -758,6 +759,7 @@ char *strend(const char *s)
 {
 return (char *)&s[strlen(s)];
 }
+
 
 char *stradup(const char *s)
 {
